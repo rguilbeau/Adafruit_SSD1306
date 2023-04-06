@@ -1183,3 +1183,19 @@ void Adafruit_SSD1306::dim(bool dim) {
   ssd1306_command1(dim ? 0 : contrast);
   TRANSACTION_END
 }
+
+/*!
+    @brief  Change contrast of the display.
+    @param  0 to 100 percent
+    @return None (void).
+    @note   This has an immediate effect on the display, no need to call the
+            display() function -- buffer contents are not changed.
+*/
+void Adafruit_SSD1306::setContrast(unsigned short contrast) {
+  contrast = contrast > 100 ? 100 : contrast;
+
+  TRANSACTION_START
+    ssd1306_command(SSD1306_SETCONTRAST);
+    ssd1306_command((contrast * 159) / 100);
+  TRANSACTION_END
+}
