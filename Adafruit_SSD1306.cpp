@@ -1191,8 +1191,9 @@ void Adafruit_SSD1306::dim(bool dim) {
     @note   This has an immediate effect on the display, no need to call the
             display() function -- buffer contents are not changed.
 */
-void Adafruit_SSD1306::setContrast(unsigned short contrast) {
+void Adafruit_SSD1306::setContrast(short contrast) {
   contrast = contrast > 100 ? 100 : contrast;
+  contrast = contrast < 0 ? 0 : contrast;
 
   TRANSACTION_START
     ssd1306_command(SSD1306_SETCONTRAST);
